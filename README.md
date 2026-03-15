@@ -1,32 +1,32 @@
-# Extended Euclidean Algorithm in GF(2^10)
+# Thuat toan Euclidean mo rong trong GF(2^10)
 
-Multiplicative inverse computation in **GF(2¹⁰)** using the **Extended Euclidean Algorithm**.
+Tinh nghich dao nhan trong truong GF(2^10) su dung thuat toan Euclidean mo rong.
 
-## Parameters
+## Thong so
 
-- **Finite Field**: GF(2¹⁰)
-- **Irreducible Polynomial**: `m(x) = x¹⁰ + x³ + 1` (decimal: 1033)
+- Truong huu han: GF(2^10)
+- Da thuc toi gian: m(x) = x^10 + x^3 + 1 (thap phan: 1033)
 
-## Test Vectors
+## Ket qua test
 
-| Input | Inverse | Polynomial |
-|-------|---------|------------|
-| a = 523 | a⁻¹ = 798 | x⁹ + x⁸ + x⁴ + x³ + x² + x |
-| b = 1015 | b⁻¹ = 709 | x⁹ + x⁷ + x⁶ + x² + 1 |
+| Dau vao | Nghich dao | Da thuc |
+|---------|------------|---------|
+| a = 523 | a^-1 = 798 | x^9 + x^8 + x^4 + x^3 + x^2 + x |
+| b = 1015 | b^-1 = 709 | x^9 + x^7 + x^6 + x^2 + 1 |
 
-## How to Run
+## Cach chay
 
 ```bash
 python gf2_10_inverse.py
 ```
 
-The program prints all intermediate values (quotient, remainder, auxiliary polynomial) at each step of the algorithm.
+Chuong trinh in ra tat ca cac gia tri trung gian (thuong, du, da thuc phu) tai moi buoc cua thuat toan.
 
-## Algorithm Overview
+## Mo ta thuat toan
 
-1. Initialize `r₀ = m(x)`, `r₁ = a(x)`, `s₀ = 0`, `s₁ = 1`
-2. At each step, compute:
-   - `q, r = poly_div(rᵢ₋₁, rᵢ)` — polynomial division over GF(2)
-   - `sᵢ₊₁ = sᵢ₋₁ ⊕ (q × sᵢ)` — update auxiliary polynomial
-3. Repeat until remainder = 0
-4. The last non-zero `s` value is the multiplicative inverse
+1. Khoi tao r0 = m(x), r1 = a(x), t0 = 0, t1 = 1
+2. Tai moi buoc tinh:
+   - q, r = chia da thuc r(i-1) cho r(i) tren GF(2)
+   - t(i+1) = t(i-1) XOR (q nhan t(i))
+3. Lap lai cho den khi du bang 0
+4. Gia tri t cuoi cung chinh la nghich dao nhan
