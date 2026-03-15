@@ -1,8 +1,3 @@
-"""
-Extended Euclidean Algorithm in GF(2^10)
-Irreducible polynomial: m(x) = x^10 + x^3 + 1 = 1033
-"""
-
 def deg(a):
     return a.bit_length() - 1 if a else -1
 
@@ -14,7 +9,6 @@ def poly_str(a):
             terms.append("1" if i == 0 else "x" if i == 1 else f"x^{i}")
     return " + ".join(terms)
 
-# Polynomial division over GF(2): returns (quotient, remainder)
 def poly_div(a, b):
     q = 0
     while deg(a) >= deg(b):
@@ -23,7 +17,6 @@ def poly_div(a, b):
         a ^= b << shift
     return q, a
 
-# Polynomial multiplication over GF(2)
 def poly_mul(a, b):
     r = 0
     while b:
@@ -31,7 +24,6 @@ def poly_mul(a, b):
         a <<= 1; b >>= 1
     return r
 
-# Extended Euclidean Algorithm: find a^(-1) in GF(2^10)
 def ext_gcd_inv(a, m):
     r0, r1 = m, a
     s0, s1 = 0, 1
@@ -43,7 +35,7 @@ def ext_gcd_inv(a, m):
     while r1 != 0:
         step += 1
         q, r = poly_div(r0, r1)
-        s = s0 ^ poly_mul(q, s1)  # s_new = s_prev XOR (q * s_curr)
+        s = s0 ^ poly_mul(q, s1)
 
         print(f"Step {step}: {poly_str(r0)} / {poly_str(r1)}")
         print(f"  q = {poly_str(q)} ({q}),  r = {poly_str(r)} ({r})")
@@ -52,17 +44,15 @@ def ext_gcd_inv(a, m):
         r0, r1 = r1, r
         s0, s1 = s1, s
 
-    # r0 should be 1 (GCD=1 since m(x) is irreducible)
     print(f"Result: {a}^(-1) = {s0} (bin: {bin(s0)}) = {poly_str(s0)}")
 
-    # Verify: a * a^(-1) mod m(x) == 1
     prod = poly_mul(a, s0)
     _, check = poly_div(prod, m)
     print(f"Verify: {a} * {s0} mod m(x) = {check} {'OK' if check == 1 else 'FAIL'}\n")
     return s0
 
 if __name__ == "__main__":
-    M = 0b10000001001  # m(x) = x^10 + x^3 + 1 = 1033
+    M = 0b10000001001
 
     print("=" * 50)
     print("Extended Euclidean Algorithm in GF(2^10)")
