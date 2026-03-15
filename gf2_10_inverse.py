@@ -32,6 +32,12 @@ def ext_gcd_inv(a, m):
     print(f"\nFinding inverse of {a} (bin: {bin(a)}) = {poly_str(a)}")
     print(f"m(x) = {poly_str(m)}\n")
 
+    print(f"Init:")
+    print(f"  r0 = m(x) = {poly_str(r0)} ({r0})")
+    print(f"  r1 = a(x) = {poly_str(r1)} ({r1})")
+    print(f"  t0 = {poly_str(s0)} ({s0})")
+    print(f"  t1 = {poly_str(s1)} ({s1})\n")
+
     while r1 != 0:
         step += 1
         q, r = poly_div(r0, r1)
